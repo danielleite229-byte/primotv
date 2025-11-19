@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>PrimoTV</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimoTV</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #111;
+            color: white;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .category {
+            padding: 15px;
+            margin: 10px 0;
+            background: #222;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        iframe {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            margin-top: 20px;
+            display: none;
+        }
+        #channelList div {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+
 <h1>PrimoTV</h1>
-<div id="app"></div>
-<script src="js/app.js"></script>
+
+<h2>Selecione uma categoria</h2>
+
+<div class="category" onclick="loadChannels('br')">🇧🇷 Canais Brasileiros</div>
+<div class="category" onclick="loadChannels('intl')">🌎 Canais Internacionais</div>
+<div class="category" onclick="loadChannels('login')">🔐 Canais que exigem login</div>
+
+<div id="channelList"></div>
+
+<iframe id="player" allowfullscreen></iframe>
+
+<script>
+async function loadChannels(type) {
+    const res = await fetch('channels.json');
+    const data = await res.json();
+
+    const list = data[type] ?? [];
+    const container = document.getElementById("channelList");
+    container.innerHTML = "";
+
+    list.forEach(ch => {
+        const div = document.createElement("div");
+        div.innerText = ch.name;
+        div.onclick = () => play(ch.url);
+        container.appendChild(div);
+    });
+}
+
+function play(url) {
+    const player = document.getElementById("player");
+    player.style.display = "block";
+    player.src = url;
+}
+</script>
+
 </body>
 </html>
