@@ -1,79 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrimoTV</title>
-    <link rel="manifest" href="manifest.json">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #111;
-            color: white;
-        }
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-        .category {
-            padding: 15px;
-            margin: 10px 0;
-            background: #222;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        iframe {
-            width: 100%;
-            height: 70vh;
-            border: none;
-            margin-top: 20px;
-            display: none;
-        }
-        #channelList div {
-            padding: 10px;
-            border-bottom: 1px solid #333;
-            cursor: pointer;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PrimoTV</title>
+<link rel="manifest" href="manifest.json">
+<style>
+  :root{--bg:#0f1113;--card:#141518;--accent:#4da3ff;--text:#fff}
+  body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+  header{padding:18px 24px;border-bottom:1px solid #0b0b0b}
+  h1{margin:0;font-size:28px}
+  .container{display:flex;gap:20px;padding:20px}
+  .sidebar{width:320px;background:var(--card);padding:12px;border-radius:8px;height:calc(100vh - 84px);overflow:auto}
+  .content{flex:1;padding:12px}
+  .cat{background:#0b0b0b;padding:12px;border-radius:6px;margin-bottom:10px;cursor:pointer;}
+  .channel{padding:10px;border-radius:6px;background:#0b0b0b;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  iframe#player{width:100%;height:78vh;border:0;border-radius:8px;background:#000;display:none}
+  .small{font-size:13px;color:#bfc7d1}
+  .open-external{color:var(--accent);text-decoration:none;padding-left:8px}
+</style>
 </head>
 <body>
-
-<h1>PrimoTV</h1>
-
-<h2>Selecione uma categoria</h2>
-
-<div class="category" onclick="loadChannels('br')">🇧🇷 Canais Brasileiros</div>
-<div class="category" onclick="loadChannels('intl')">🌎 Canais Internacionais</div>
-<div class="category" onclick="loadChannels('login')">🔐 Canais que exigem login</div>
-
-<div id="channelList"></div>
-
-<iframe id="player" allowfullscreen></iframe>
+<header>
+  <h1>PrimoTV</h1>
+</header>
+<div class="container">
+  <aside class="sidebar">
+    <div class="small">Selecione uma categoria</div>
+    <div id="categories"></div>
+    <hr style="opacity:.06;margin:12px 0;">
+    <div class="small">Instrução</div>
+    <div class="small" style="margin-top:6px;color:#99a3b0">Os links serão abertos dentro do player se o site permitir iframe. Caso contrário, serão abertos em nova aba.</div>
+  </aside>
+  <main class="content">
+    <div id="channelList"></div>
+    <iframe id="player" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+  </main>
+</div>
 
 <script>
-async function loadChannels(type) {
-    const res = await fetch('channels.json');
-    const data = await res.json();
+const channels = {"brasil_abertos": [{"nome": "TV Brasil", "url": "https://play.ebc.com.br/"}, {"nome": "TV Cultura", "url": "https://culturaplay.tvcultura.com.br/ao-vivo"}, {"nome": "Record News", "url": "https://noticias.r7.com/record-news/ao-vivo"}, {"nome": "Band", "url": "https://www.band.uol.com.br/tv/ao-vivo"}, {"nome": "RedeTV", "url": "https://www.redetv.uol.com.br/aovivo"}], "brasil_noticias": [{"nome": "CNN Brasil (grátis)", "url": "https://www.cnnbrasil.com.br/ao-vivo/"}, {"nome": "Jovem Pan News", "url": "https://www.youtube.com/@JovemPanNews/live"}], "internacional_noticias": [{"nome": "DW", "url": "https://www.youtube.com/@dwnews/live"}, {"nome": "Euronews", "url": "https://www.youtube.com/@euronews/live"}, {"nome": "ABC News", "url": "https://www.youtube.com/@ABCNews/live"}, {"nome": "NBC News", "url": "https://www.youtube.com/@NBCNews/live"}], "internacional_esportes": [{"nome": "Red Bull TV", "url": "https://www.redbull.com/int-en/tv"}], "login_necessario": [{"nome": "Globoplay", "url": "https://globoplay.globo.com/"}, {"nome": "Claro TV+", "url": "https://clarotvmais.com.br/"}, {"nome": "Vivo Play", "url": "https://www.vivoplay.com.br/"}]};
 
-    const list = data[type] ?? [];
-    const container = document.getElementById("channelList");
-    container.innerHTML = "";
-
-    list.forEach(ch => {
-        const div = document.createElement("div");
-        div.innerText = ch.name;
-        div.onclick = () => play(ch.url);
-        container.appendChild(div);
-    });
+function renderCategories(){
+  const cats = Object.keys(channels);
+  const el = document.getElementById('categories');
+  el.innerHTML = '';
+  cats.forEach(key=>{
+    const title = key.replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+    const d = document.createElement('div');
+    d.className='cat';
+    d.innerText = title;
+    d.onclick = ()=>showCategory(key);
+    el.appendChild(d);
+  });
 }
 
-function play(url) {
-    const player = document.getElementById("player");
-    player.style.display = "block";
+function showCategory(key){
+  const list = document.getElementById('channelList');
+  list.innerHTML = '';
+  const items = channels[key] || [];
+  if(!items.length) list.innerHTML = '<div class="small">Nenhum canal nesta categoria</div>';
+  items.forEach(ch=>{
+    const div = document.createElement('div');
+    div.className='channel';
+    const name = document.createElement('div'); name.innerText = ch.nome || ch.name || ch.title || 'Canal';
+    const btns = document.createElement('div');
+    const openBtn = document.createElement('a');
+    openBtn.href = ch.url;
+    openBtn.target = '_blank';
+    openBtn.className='open-external';
+    openBtn.innerText = 'Abrir em nova aba';
+    div.appendChild(name);
+    div.appendChild(btns);
+    btns.appendChild(openBtn);
+    div.onclick = async (e)=>{
+      if(e.target === openBtn) return;
+      playChannel(ch.url);
+    };
+    list.appendChild(div);
+  })
+}
+
+function playChannel(url){
+  const player = document.getElementById('player');
+  try{
     player.src = url;
+    player.style.display = 'block';
+    player.scrollIntoView({behavior:'smooth'});
+  }catch(e){
+    window.open(url,'_blank');
+  }
 }
+
+renderCategories();
 </script>
 
 </body>
