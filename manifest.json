@@ -1,9 +1,1 @@
-{
-  "name": "PrimoTV",
-  "short_name": "PrimoTV",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
-  "icons": []
-}
+{"name": "PrimoTV", "start_url": "index.html", "display": "standalone", "background_color": "#000", "theme_color": "#000"}

@@ -1,4 +1,72 @@
 {
-  "generated_by": "PrimoTV - UI version",
-  "categories": []
+  "brasil_abertos": [
+    {
+      "nome": "TV Brasil",
+      "url": "https://play.ebc.com.br/"
+    },
+    {
+      "nome": "TV Cultura",
+      "url": "https://culturaplay.tvcultura.com.br/ao-vivo"
+    },
+    {
+      "nome": "Record News",
+      "url": "https://noticias.r7.com/record-news/ao-vivo"
+    },
+    {
+      "nome": "Band",
+      "url": "https://www.band.uol.com.br/tv/ao-vivo"
+    },
+    {
+      "nome": "RedeTV",
+      "url": "https://www.redetv.uol.com.br/aovivo"
+    }
+  ],
+  "brasil_noticias": [
+    {
+      "nome": "CNN Brasil (gr\u00e1tis)",
+      "url": "https://www.cnnbrasil.com.br/ao-vivo/"
+    },
+    {
+      "nome": "Jovem Pan News",
+      "url": "https://www.youtube.com/@JovemPanNews/live"
+    }
+  ],
+  "internacional_noticias": [
+    {
+      "nome": "DW",
+      "url": "https://www.youtube.com/@dwnews/live"
+    },
+    {
+      "nome": "Euronews",
+      "url": "https://www.youtube.com/@euronews/live"
+    },
+    {
+      "nome": "ABC News",
+      "url": "https://www.youtube.com/@ABCNews/live"
+    },
+    {
+      "nome": "NBC News",
+      "url": "https://www.youtube.com/@NBCNews/live"
+    }
+  ],
+  "internacional_esportes": [
+    {
+      "nome": "Red Bull TV",
+      "url": "https://www.redbull.com/int-en/tv"
+    }
+  ],
+  "login_necessario": [
+    {
+      "nome": "Globoplay",
+      "url": "https://globoplay.globo.com/"
+    },
+    {
+      "nome": "Claro TV+",
+      "url": "https://clarotvmais.com.br/"
+    },
+    {
+      "nome": "Vivo Play",
+      "url": "https://www.vivoplay.com.br/"
+    }
+  ]
 }
