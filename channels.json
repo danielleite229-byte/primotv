@@ -2,107 +2,61 @@
   "generated_by": "Primo TV - leite primo",
   "categories": [
     {
-      "id": "canais_oficiais",
-      "title": "Canais Oficiais",
+      "id": "noticias_brasil",
+      "title": "Notícias – Brasil",
       "channels": [
-        {
-          "title": "TV Globo (GloboPlay)",
-          "url": "https://globoplay.globo.com/tv-globo/ao-vivo/",
-          "open_in_browser": true
-        },
-        {
-          "title": "SBT Vídeos",
-          "url": "https://www.sbt.com.br/ao-vivo",
-          "open_in_browser": true
-        },
-        {
-          "title": "Band TV",
-          "url": "https://www.band.uol.com.br/ao-vivo",
-          "open_in_browser": true
-        },
-        {
-          "title": "TV Cultura",
-          "url": "https://culturaplay.tvcultura.com.br/channels/14",
-          "open_in_browser": true
-        },
-        {
-          "title": "Record News",
-          "url": "https://noticias.r7.com/record-news/ao-vivo",
-          "open_in_browser": true
-        },
-        {
-          "title": "TV Brasil",
-          "url": "https://play.ebc.com.br/",
-          "open_in_browser": true
-        },
-        {
-          "title": "TV Câmara",
-          "url": "https://www.camara.leg.br/tv",
-          "open_in_browser": true
-        },
-        {
-          "title": "TV Senado",
-          "url": "https://www.senado.leg.br/tv/",
-          "open_in_browser": true
-        },
-        {
-          "title": "TV Aparecida",
-          "url": "https://www.a12.com/tv/tv-ao-vivo",
-          "open_in_browser": true
-        },
-        {
-          "title": "Rede Vida",
-          "url": "https://www.redevida.com.br/ao-vivo",
-          "open_in_browser": true
-        }
+        { "title": "Record News", "url": "https://noticias.r7.com/record-news/ao-vivo", "open_in_browser": true },
+        { "title": "TV Brasil – Jornalismo", "url": "https://tvbrasil.ebc.com.br/webtv", "open_in_browser": true },
+        { "title": "TV Cultura – Jornalismo", "url": "https://cultura.uol.com.br/aovivo/", "open_in_browser": true },
+        { "title": "Band News", "url": "https://www.band.uol.com.br/ao-vivo", "open_in_browser": true },
+        { "title": "CNN Brasil – Notícias", "url": "https://www.cnnbrasil.com.br/ultimas-noticias/", "open_in_browser": true },
+        { "title": "SBT News", "url": "https://www.sbtnews.com.br/", "open_in_browser": true },
+        { "title": "RedeTV! News", "url": "https://www.redetv.uol.com.br/aovivo", "open_in_browser": true }
       ]
     },
 
     {
-      "id": "brasil_abertos",
-      "title": "Brasil - Abertos",
+      "id": "noticias_internacional",
+      "title": "Notícias – Internacional",
       "channels": [
-        { "title": "TV Brasil", "url": "https://play.ebc.com.br/", "tvg_id": "tvbrasil" },
-        { "title": "TV Cultura", "url": "https://culturaplay.tvcultura.com.br/channels/14", "tvg_id": "tvcultura" },
-        { "title": "TV Câmara", "url": "https://www2.camara.leg.br/camaranoticias/tv/embedAoVivo.html", "tvg_id": "tvcamara" }
-      ]
-    },
-
-    {
-      "id": "noticias",
-      "title": "Notícias",
-      "channels": [
-        { "title": "DW News", "url": "https://www.youtube.com/watch?v=LuKwFajn37U" },
         { "title": "Euronews", "url": "https://www.euronews.com/live" },
-        { "title": "Al Jazeera English", "url": "https://www.aljazeera.com/live/" }
+        { "title": "France 24", "url": "https://www.france24.com/en/live" },
+        { "title": "DW News", "url": "https://www.dw.com/pt-br/tv/ao-vivo/s-100825" },
+        { "title": "Al Jazeera English", "url": "https://www.aljazeera.com/live/" },
+        { "title": "Al Jazeera Arabic", "url": "https://www.aljazeera.net/live" },
+        { "title": "NHK World Japan", "url": "https://www3.nhk.or.jp/nhkworld/en/live/" },
+        { "title": "ABC News USA", "url": "https://abcnews.go.com/live" }
       ]
     },
 
     {
-      "id": "infantil",
-      "title": "Infantil",
-      "channels": [
-        { "title": "PBS Kids", "url": "https://pbskids.org/" }
-      ]
-    },
-
-    {
-      "id": "esportes",
-      "title": "Esportes",
+      "id": "esportes_brasil",
+      "title": "Esportes – Brasil",
       "channels": [
         { "title": "CBF TV", "url": "https://www.youtube.com/c/cbfnet" },
-        { "title": "Red Bull TV", "url": "https://www.redbull.com/int-en/live" }
+        { "title": "Canal Olímpico do Brasil (COB)", "url": "https://www.canalolimpicodobrasil.com.br/" },
+        { "title": "TV Brasil – Esportes", "url": "https://tvbrasil.ebc.com.br/webtv" },
+        { "title": "FPF TV – Futebol Paulista", "url": "https://www.youtube.com/c/futebolpaulista" },
+        { "title": "Vôlei Brasil – CBV", "url": "https://www.youtube.com/c/voleibrasil" },
+        { "title": "Atletismo Brasil – CBAt", "url": "https://www.youtube.com/c/AtletismoBrasil" },
+        { "title": "CBSurf Brasil", "url": "https://www.youtube.com/c/CBSurfOficial" },
+        { "title": "Red Bull Sports Brasil", "url": "https://www.youtube.com/c/RedBull" }
       ]
     },
 
     {
-      "id": "internacional",
-      "title": "Internacional",
+      "id": "esportes_internacional",
+      "title": "Esportes – Internacional",
       "channels": [
-        { "title": "NASA TV", "url": "https://www.nasa.gov/multimedia/nasatv/" },
-        { "title": "France 24", "url": "https://www.france24.com/en/live" }
+        { "title": "Red Bull TV", "url": "https://www.redbull.com/int-en/live" },
+        { "title": "FIFA+", "url": "https://www.fifa.com/fifaplus/en/live" },
+        { "title": "Olympic Channel", "url": "https://olympics.com/en/live" },
+        { "title": "UEFA TV (Free)", "url": "https://www.uefa.tv/" },
+        { "title": "World Surf League (WSL)", "url": "https://www.worldsurfleague.com/watch" },
+        { "title": "NBA Free Highlights", "url": "https://www.youtube.com/c/NBA" },
+        { "title": "Tennis Channel Free", "url": "https://tennischannel.com/" },
+        { "title": "WWE Free", "url": "https://www.wwe.com/videos" }
       ]
     }
   ]
 }
-
