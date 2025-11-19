@@ -1,0 +1,90 @@
+{
+  "generated_by": "Primo TV - leite primo",
+  "categories": [
+    {
+      "id": "brasil_abertos",
+      "title": "Brasil - Abertos",
+      "channels": [
+        {
+          "title": "TV Brasil",
+          "url": "https://play.ebc.com.br/",
+          "tvg_id": "tvbrasil"
+        },
+        {
+          "title": "TV Cultura",
+          "url": "https://culturaplay.tvcultura.com.br/channels/14",
+          "tvg_id": "tvcultura"
+        },
+        {
+          "title": "TV Câmara",
+          "url": "https://www2.camara.leg.br/camaranoticias/tv/embedAoVivo.html",
+          "tvg_id": "tvcamara"
+        }
+      ]
+    },
+    {
+      "id": "noticias",
+      "title": "Notícias",
+      "channels": [
+        {
+          "title": "DW News (YouTube)",
+          "url": "https://www.youtube.com/watch?v=LuKwFajn37U",
+          "tvg_id": "dw"
+        },
+        {
+          "title": "Euronews",
+          "url": "https://www.euronews.com/live",
+          "tvg_id": "euronews"
+        },
+        {
+          "title": "Al Jazeera English",
+          "url": "https://www.aljazeera.com/live/",
+          "tvg_id": "aljazeera"
+        }
+      ]
+    },
+    {
+      "id": "infantil",
+      "title": "Infantil",
+      "channels": [
+        {
+          "title": "PBS Kids",
+          "url": "https://pbskids.org/",
+          "tvg_id": "pbskids"
+        }
+      ]
+    },
+    {
+      "id": "esportes",
+      "title": "Esportes",
+      "channels": [
+        {
+          "title": "CBF TV",
+          "url": "https://www.youtube.com/c/cbfnet",
+          "tvg_id": "cbf"
+        },
+        {
+          "title": "Red Bull TV",
+          "url": "https://www.redbull.com/int-en/live",
+          "tvg_id": "redbull"
+        }
+      ]
+    },
+    {
+      "id": "internacional",
+      "title": "Internacional",
+      "channels": [
+        {
+          "title": "NASA TV",
+          "url": "https://www.nasa.gov/multimedia/nasatv/",
+          "tvg_id": "nasa"
+        },
+        {
+          "title": "France 24",
+          "url": "https://www.france24.com/en/live",
+          "tvg_id": "france24"
+        }
+      ]
+    }
+  ]
+}
