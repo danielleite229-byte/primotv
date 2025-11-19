@@ -1,158 +1,22 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Primo TV</title>
-  <link rel="manifest" href="/manifest.json">
-  <link rel="icon" href="/icons/icon-192.png">
-  <style>
-    :root{--bg:#0b1220;--card:#0f1724;--accent:#0a84ff;--text:#e6eef8}
-    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text)}
-    header{padding:14px 16px;background:linear-gradient(90deg,var(--card),#0c1622);display:flex;align-items:center;gap:12px}
-    header img{width:40px;height:40px;border-radius:6px}
-    header h1{font-size:18px;margin:0}
-    #main{padding:12px}
-    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    .btn{background:var(--accent);color:#fff;padding:10px 12px;border-radius:8px;border:none;cursor:pointer}
-    .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-    .card{background:var(--card);padding:10px;border-radius:8px}
-    .card h3{margin:0 0 6px 0;font-size:14px}
-    video{width:100%;max-height:420px;background:black;border-radius:8px}
-    footer{padding:12px;text-align:center;color:#9fb4d8;font-size:13px}
-    .category-title{margin:10px 0 6px 0;color:#9fb4d8;font-weight:600}
-  </style>
+<meta charset="UTF-8">
+<title>PrimoTV</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <img src="/icons/icon-192.png" alt="Primo TV">
-    <h1>Primo TV — leite primo</h1>
-  </header>
-  <div id="main">
-    <div class="controls">
-      <button id="refresh" class="btn">Atualizar lista</button>
-      <button id="installBtn" class="btn" style="display:none">Instalar app</button>
-      <input id="search" placeholder="Pesquisar canal..." style="flex:1;padding:10px;border-radius:8px;border:0;background:#07101a;color:#cfe7ff">
-    </div>
+<div id="menu">
+  <h2>PrimoTV</h2>
+  <ul id="categories"></ul>
+</div>
 
-    <div id="playerWrap" class="card" style="margin-bottom:12px;display:none">
-      <video id="player" controls playsinline></video>
-      <div style="margin-top:8px">
-        <button id="playBtn" class="btn">Reproduzir</button>
-        <button id="openBtn" class="btn" style="background:#3b82f6">Abrir em nova aba</button>
-      </div>
-    </div>
+<div id="content">
+  <h1>Selecione uma categoria</h1>
+  <div id="channels"></div>
+</div>
 
-    <div id="categories"></div>
-  </div>
-
-  <footer>Primo TV — leite primo · Canais legais e públicos</footer>
-
-<script>
-const CHANNELS_URL_DEFAULT = 'https://raw.githubusercontent.com/yourusername/primotv/main/channels.json';
-let channelsUrl = CHANNELS_URL_DEFAULT;
-let deferredPrompt = null;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installBtn').style.display = 'inline-block';
-});
-
-document.getElementById('installBtn').addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const choice = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  document.getElementById('installBtn').style.display = 'none';
-});
-
-document.getElementById('refresh').addEventListener('click', () => loadChannels(true));
-document.getElementById('search').addEventListener('input', (e)=> renderCategories(window.currentData, e.target.value));
-
-const player = document.getElementById('player');
-const playerWrap = document.getElementById('playerWrap');
-const playBtn = document.getElementById('playBtn');
-const openBtn = document.getElementById('openBtn');
-
-playBtn.addEventListener('click', ()=>{
-  if(player.src) player.play();
-});
-openBtn.addEventListener('click', ()=>{
-  if(player.src) window.open(player.src, '_blank');
-});
-
-async function loadChannels(force=false){
-  const url = localStorage.getItem('channels_url') || CHANNELS_URL_DEFAULT;
-  channelsUrl = url;
-  try{
-    const res = await fetch(url, {cache: 'no-cache'});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const data = await res.json();
-    window.currentData = data;
-    renderCategories(data, document.getElementById('search').value);
-  }catch(err){
-    console.warn('Failed fetch, loading bundled fallback', err);
-    const res = await fetch('/channels.json');
-    const data = await res.json();
-    window.currentData = data;
-    renderCategories(data, document.getElementById('search').value);
-  }
-}
-
-function renderCategories(data, filter=''){
-  const container = document.getElementById('categories');
-  container.innerHTML = '';
-  const q = filter.trim().toLowerCase();
-  data.categories.forEach(cat=>{
-    const catTitle = document.createElement('div');
-    catTitle.className='category-title';
-    catTitle.textContent = cat.title;
-    container.appendChild(catTitle);
-
-    const list = document.createElement('div');
-    list.className='list';
-    cat.channels.filter(ch=> ch.title.toLowerCase().includes(q) || ch.tvg_id?.toLowerCase().includes(q)).forEach(ch=>{
-      const card = document.createElement('div');
-      card.className='card';
-      card.innerHTML = `<h3>${ch.title}</h3><div>${ch.tvg_id || ''}</div><div style="margin-top:8px">
-        <button class="btn" data-url="${ch.url}" onclick="playChannel(event)">Reproduzir</button>
-        <button class="btn" onclick="openInNewTab('${ch.url}')">Abrir</button>
-      </div>`;
-      list.appendChild(card);
-    });
-    container.appendChild(list);
-  });
-}
-
-function playChannel(e){
-  const url = e.currentTarget.dataset.url;
-  // if youtube or site, open new tab
-  if(url.includes('youtube.com') || url.includes('youtu.be') || url.startsWith('http')){
-    // try to play direct HLS; for non-hls, open in new tab to preserve legality
-    if(url.endsWith('.m3u8') || url.includes('.m3u8')){
-      player.src = url;
-      playerWrap.style.display='block';
-      player.play().catch(()=>{});
-    }else{
-      window.open(url, '_blank');
-    }
-  }else{
-    player.src = url;
-    playerWrap.style.display='block';
-    player.play().catch(()=>{});
-  }
-}
-
-function openInNewTab(u){ window.open(u,'_blank'); }
-
-// Allow user to change the online URL quickly (prompt)
-if(!localStorage.getItem('channels_url')){
-  localStorage.setItem('channels_url', CHANNELS_URL_DEFAULT);
-}
-
-// initial load
-loadChannels();
-</script>
+<script src="js/app.js"></script>
 </body>
 </html>
